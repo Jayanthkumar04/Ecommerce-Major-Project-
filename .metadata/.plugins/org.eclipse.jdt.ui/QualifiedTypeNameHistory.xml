@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="java.math.BigDecimal"/>
+    <fullyQualifiedTypeName name="java.sql.Date"/>
+    <fullyQualifiedTypeName name="org.hibernate.annotations.ManyToAny"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.ManyToOne"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.JoinColumn"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.OneToMany"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.CascadeType"/>
+    <fullyQualifiedTypeName name="com.jayanth.ecommerce.entities.Product"/>
+    <fullyQualifiedTypeName name="org.springframework.data.jpa.repository.JpaRepository"/>
+    <fullyQualifiedTypeName name="com.jayanth.ecommerce.entities.ProductCategory"/>
+    <fullyQualifiedTypeName name="org.springframework.data.rest.core.annotation.RepositoryRestResource"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GeneratedValue"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.GenerationType"/>
+    <fullyQualifiedTypeName name="org.springframework.data.rest.webmvc.config.RepositoryRestConfigurer"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.EntityManager"/>
+    <fullyQualifiedTypeName name="org.springframework.data.rest.core.config.RepositoryRestConfiguration"/>
+    <fullyQualifiedTypeName name="org.springframework.web.servlet.config.annotation.CorsRegistry"/>
+    <fullyQualifiedTypeName name="java.util.Set"/>
+    <fullyQualifiedTypeName name="jakarta.persistence.metamodel.EntityType"/>
+    <fullyQualifiedTypeName name="java.util.List"/>
+    <fullyQualifiedTypeName name="java.util.ArrayList"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
+    <fullyQualifiedTypeName name="org.springframework.data.repository.query.Param"/>
+</qualifiedTypeNameHistroy>

@@ -1,0 +1,21 @@
+package com.jayanth.ecommerce.entities;
+
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+
+@Entity
+public class ProductCategory {
+
+	
+	private Long id;
+	
+	private String categoryName;
+	
+	@OneToMany(mappedBy = "category",cascade = CascadeType.ALL)
+	private List<Product> products;
+	
+	
+}

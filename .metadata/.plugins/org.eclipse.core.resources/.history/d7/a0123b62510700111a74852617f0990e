@@ -1,0 +1,5 @@
+package com.jayanth.ecommerce.entities;
+
+public class Product {
+
+}
