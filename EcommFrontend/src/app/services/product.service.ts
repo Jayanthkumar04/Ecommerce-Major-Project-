@@ -19,10 +19,25 @@ export class ProductService {
     
     return this.httpClient.get<GetResponse>(this.apiUrl)
                           .pipe(map(response=>response._embedded.products));
+  }
 
-                          
+  getProductsByCategoryId(categoryId:number):Observable<Product[]>{
+    
+      console.log(categoryId)
+      const searchUrl = `${this.apiUrl}/search/findByCategoryId?id=${categoryId}`
+    return this.httpClient.get<GetResponse>(searchUrl)
+                          .pipe(map(response=>response._embedded.products));
 
   }
+
+  searchProducts(keyword: string): Observable<Product[]> {
+
+  const searchUrl =
+    `${this.apiUrl}/search/findByNameContaining?name=${keyword}`;
+
+  return this.httpClient.get<GetResponse>(searchUrl)
+    .pipe(map(response => response._embedded.products));
+}
 
 }
 

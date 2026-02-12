@@ -1,21 +1,18 @@
-
-<table>
-<thead>   
-     <th>NAME</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Image</th>
-    
-</thead>
-
-<tbody *ngFor="let p of products">
-    <tr>
-        <td>{{p.name}}</td>
-        <td>{{p.title}}</td>
-        <td>{{p.description}}</td>
-        <td><img [src]="p.imageUrl" alt="No umage found"></td>
-    </tr>
-</tbody>
-
-
-</table>
+<div class="main-content">
+    <div *ngIf="products.length==0" class="alert alert-warning col-md-12">
+        NO RECORDS FOUND
+    </div>
+    <div class="section-content section-content-p30">
+        <div class="row">
+            <!-- loop over the collection of products -->
+            <div *ngFor="let tempProduct of products" class="col-md-3">
+                <div class="product-box">
+                    <img src="{{ tempProduct.imageUrl }}" class="img-responsive">
+                    <h1>{{ tempProduct.name }}</h1>
+                    <div class="price">{{ tempProduct.unitPrice }}</div>
+                    <a href="#" class="primary-btn">Add to cart</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
