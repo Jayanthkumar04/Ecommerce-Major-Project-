@@ -1,4 +1,21 @@
 
-<p *ngFor="let p of products">
-{{p.name}} :: {{p.description}}
-</p>
+<table>
+<thead>   
+     <th>NAME</th>
+    <th>Title</th>
+    <th>Description</th>
+    <th>Image</th>
+    
+</thead>
+
+<tbody *ngFor="let p of products">
+    <tr>
+        <td>{{p.name}}</td>
+        <td>{{p.title}}</td>
+        <td>{{p.description}}</td>
+        <td><img [src]="p.imageUrl" alt="No umage found"></td>
+    </tr>
+</tbody>
+
+
+</table>
