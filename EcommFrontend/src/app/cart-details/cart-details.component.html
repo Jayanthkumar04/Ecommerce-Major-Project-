@@ -1,0 +1,69 @@
+<div class="detail-section">
+  <div class="container-fluid">
+
+    <table class="table table-bordered">
+
+      <thead>
+        <tr>
+          <th>Product Image</th>
+          <th>Product Detail</th>
+          <th class="text-center">Quantity</th>
+          <th class="text-center">Remove</th>
+        </tr>
+      </thead>
+
+      <tbody *ngFor="let item of cartItems">
+        <tr>
+
+          <!-- Product Image -->
+          <td>
+            <img [src]="item.imageUrl" alt="{{item.name}}" width="120">
+          </td>
+
+          <!-- Product Details -->
+          <td>
+            <h4>{{item.name}}</h4>
+            <p class="price">
+              {{item.unitPrice | currency:'INR'}}
+            </p>
+          </td>
+
+          <!-- Quantity Section -->
+          <td class="text-center">
+            <button (click)="decrement(item)" class="btn btn-info"> - </button>
+            <span style="margin:0 10px; font-weight:600;">
+              {{item.quantity}}
+            </span>
+            <button (click)="increment(item)" class="btn btn-info"> + </button>
+          </td>
+
+          <!-- Remove Button -->
+          <td class="text-center">
+            <button class="btn btn-danger" (click)="remove(item)">
+              Remove
+            </button>
+          </td>
+
+        </tr>
+      </tbody>
+
+      <!-- Cart Summary Row -->
+      <tfoot *ngIf="cartItems.length > 0">
+        <tr>
+          <td colspan="4" class="text-end" style="padding:20px;">
+
+            <h5><strong>Total Quantity:</strong> {{totalQuantity}}</h5>
+            <h5><strong>Total Price:</strong> {{totalPrice | currency:'INR'}}</h5>
+
+            <a href="#" class="primary-btn" style="margin-top:15px;">
+              Proceed to Checkout
+            </a>
+
+          </td>
+        </tr>
+      </tfoot>
+
+    </table>
+
+  </div>
+</div>

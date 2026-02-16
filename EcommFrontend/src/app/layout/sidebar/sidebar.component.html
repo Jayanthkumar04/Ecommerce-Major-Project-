@@ -1,0 +1,19 @@
+<!-- MENU SIDEBAR-->
+<aside class="menu-sidebar d-none d-lg-block">
+  <div class="logo">
+    <a routerLink="/">
+      <img src="assets/images/logo/jays-logo.png" alt="ashokit" class="img-responsive">
+    </a>
+  </div>
+  <div class="menu-sidebar-content js-scrollbar1">
+    <nav class="navbar-sidebar">
+      <ul class="list-unstyled navbar-list" *ngFor="let c of categories">
+
+        <li>
+          <a routerLink="category/{{c.id}}" routerLinkActive="active-link">{{c.categoryName}}</a>
+        </li>
+
+      </ul>
+    </nav>
+  </div>
+</aside>

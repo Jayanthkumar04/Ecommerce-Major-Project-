@@ -1,15 +1,17 @@
 import { Component, OnInit } from '@angular/core';
 import { Product } from '../common/product';
 import { ProductService } from '../services/product.service';
-import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router, RouterModule } from '@angular/router';
+import { CommonModule, CurrencyPipe } from '@angular/common';
+import { ActivatedRoute, Router, RouterLink, RouterModule } from '@angular/router';
 import { CategoryService } from '../services/category.service';
 import { ProductCategory } from '../common/product-category';
+import { CartItems } from '../common/cart-items';
+import { CartService } from '../services/cart.service';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule,RouterModule],
+  imports: [CommonModule,RouterModule,RouterLink,CurrencyPipe,],
   templateUrl: './product-list.component.html',
   styleUrl: './product-list.component.css'
 })
@@ -20,7 +22,7 @@ export class ProductListComponent implements OnInit{
 
   categories:ProductCategory[]=[];
   currentCategoryId:number=1;
-  constructor(private productService:ProductService,private route:ActivatedRoute,private router:Router,private categoryService:CategoryService)
+  constructor(private productService:ProductService,private route:ActivatedRoute,private router:Router,private categoryService:CategoryService,private cartService:CartService)
   {
 
   }
@@ -64,8 +66,6 @@ export class ProductListComponent implements OnInit{
 
     this.categoryService.getAllCategories().subscribe(data=>{
 
-         
-         console.log("i am cmng",data);
           this.categories=data;
     })
 
@@ -79,5 +79,18 @@ export class ProductListComponent implements OnInit{
     this.products = data;
   });
 }
+
+ addToCart(product:Product)
+ {
+  const cartItem = new CartItems(product.imageUrl,product.name,product.unitPrice,1);
+
+  this.cartService.addToCart(cartItem);
+
+  this.router.navigate(['cart-detail']);
+
+
+ }
+
+
 
 }
