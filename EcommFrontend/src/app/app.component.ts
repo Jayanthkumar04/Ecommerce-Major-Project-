@@ -7,6 +7,7 @@ import { CommonModule } from '@angular/common';
 import { SidebarComponent } from './layout/sidebar/sidebar.component';
 import { FooterComponent } from './layout/footer/footer.component';
 import { HeaderComponent } from './layout/header/header.component';
+import { CheckoutComponent } from './checkout/checkout.component';
 
 @Component({
   selector: 'app-root',

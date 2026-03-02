@@ -1,14 +1,93 @@
-<div class="container">
+<div class="container detail-section">
 
-  <div class="customer">
+  <form [formGroup]="checkoutForm">
 
+    <!-- ================= CUSTOMER SECTION ================= -->
+    <div class="form-area">
+      <h3>Customer Information</h3>
+
+      <div class="row" formGroupName="user">
+
+        <div class="col-md-6 input-space">
+          <label>Name</label>
+          <input type="text" formControlName="name">
+        </div>
+
+        <div class="col-md-6 input-space">
+          <label>Email</label>
+          <input type="text" formControlName="email">
+        </div>
+
+        <div class="col-md-6 input-space">
+          <label>Phone Number</label>
+          <input type="text" formControlName="phno">
+        </div>
+
+      </div>
+    </div>
+
+
+    <!-- ================= SHIPPING SECTION ================= -->
+    <div class="form-area">
+      <h3>Shipping Address</h3>
+
+      <div class="row" formGroupName="shippingAddress">
+
+        <div class="col-md-6 input-space">
+          <label>House Number</label>
+          <input type="text" formControlName="houseNum">
+        </div>
+
+        <div class="col-md-6 input-space">
+          <label>Street</label>
+          <input type="text" formControlName="street">
+        </div>
+
+        <div class="col-md-6 input-space">
+          <label>City</label>
+          <input type="text" formControlName="city">
+        </div>
+
+        <div class="col-md-6 input-space">
+          <label>State</label>
+          <input type="text" formControlName="state">
+        </div>
+
+        <div class="col-md-6 input-space">
+          <label>Zipcode</label>
+          <input type="text" formControlName="zipcode">
+        </div>
+
+        <div class="col-md-6 input-space">
+          <label>Country</label>
+          <input type="text" formControlName="country">
+        </div>
+
+      </div>
+    </div>
+
+  </form>
+
+
+  <!-- ================= REVIEW ORDER ================= -->
+  <div class="form-area">
+    <h3>Review Order</h3>
+
+    <div class="row">
+      <div class="col-md-12">
+
+        <h5><strong>Total Quantity:</strong> {{totalQuantity}}</h5>
+        <h5><strong>Shipping:</strong> FREE</h5>
+        <h5><strong>Total Price:</strong> {{totalPrice | currency:'INR'}}</h5>
+
+        <br>
+
+        <button class="btn btn-success" (click)="placeOrder()">
+          Place Order
+        </button>
+
+      </div>
+    </div>
   </div>
 
-  <div class="shipping-address"> 
-
-  </div>
-
-  <div class="review-order">
-
-  </div>
 </div>
