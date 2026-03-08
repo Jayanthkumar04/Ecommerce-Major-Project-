@@ -82,7 +82,7 @@
 
         <br>
 
-        <button class="btn btn-success" (click)="placeOrder()">
+        <button class="btn btn-success" (click)="placeOrder()" [disabled]="cartItems.length===0">
           Place Order
         </button>
 

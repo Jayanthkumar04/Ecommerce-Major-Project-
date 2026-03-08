@@ -103,6 +103,9 @@ export class CheckoutComponent implements OnInit{
         
 
 
+      },
+      error:(error)=>{
+        alert("please check the details u have entered we will change frontend validations later");
       }
     })
     
