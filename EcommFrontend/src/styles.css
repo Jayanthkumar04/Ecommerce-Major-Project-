@@ -1009,6 +1009,19 @@ footer ul li{
         color:#03a9f4;
         margin-left:15px
     }
+    /* Login button beside cart */
+
+.cart-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.login-btn{
+    height:43px;
+    padding:0 20px;
+    margin-left:10px;
+}
     .total span{
         display:inline-block;
         background:#fff;
