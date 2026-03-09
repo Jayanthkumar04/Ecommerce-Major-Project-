@@ -2,15 +2,14 @@ package com.org.jayanth.dto;
 
 import java.util.List;
 
-import com.org.jayanth.entity.OrderItems;
 import com.org.jayanth.entity.ShippingAddress;
-import com.org.jayanth.entity.User;
 
 public class CheckoutRequest {
 
-	private User user;
 	
 	private ShippingAddress shippingAddress;
+	
+	private String email;
 	
 	private List<OrderItemDto> orderItems;
 	
@@ -18,12 +17,14 @@ public class CheckoutRequest {
 	
 	private Double totalPrice;
 
-	public User getUser() {
-		return user;
+	
+
+	public String getEmail() {
+		return email;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setEmail(String email) {
+		this.email = email;
 	}
 
 	public ShippingAddress getShippingAddress() {
@@ -60,7 +61,7 @@ public class CheckoutRequest {
 
 	@Override
 	public String toString() {
-		return "CheckoutRequest [user=" + user + ", shippingAddress=" + shippingAddress + ", orderItems=" + orderItems
+		return "CheckoutRequest [email=" + email + ", shippingAddress=" + shippingAddress + ", orderItems=" + orderItems
 				+ ", totalQuantity=" + totalQuantity + ", totalPrice=" + totalPrice + "]";
 	}
 	

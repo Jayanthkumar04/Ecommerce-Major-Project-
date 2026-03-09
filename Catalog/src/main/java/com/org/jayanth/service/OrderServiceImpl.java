@@ -14,12 +14,9 @@ import com.org.jayanth.dto.OrderItemDto;
 import com.org.jayanth.entity.Order;
 import com.org.jayanth.entity.OrderItems;
 import com.org.jayanth.entity.ShippingAddress;
-import com.org.jayanth.entity.User;
-import com.org.jayanth.exception.UserNotFoundException;
 import com.org.jayanth.repo.OrderItemsRepo;
 import com.org.jayanth.repo.OrderRepo;
 import com.org.jayanth.repo.ShippingAddressRepo;
-import com.org.jayanth.repo.UserRepo;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 
@@ -34,8 +31,6 @@ public class OrderServiceImpl {
 	@Autowired
 	private OrderItemsRepo orderItemsRepo;
 	
-	@Autowired
-	private UserRepo userRepo;
 	
 	@Autowired
 	private ShippingAddressRepo addressRepo;
@@ -53,12 +48,7 @@ public class OrderServiceImpl {
 	public CheckoutResponse createOrder(CheckoutRequest request) throws Exception{
 		
 		
-        User user = userRepo.findByEmail(request.getUser().getEmail());
-        
-        if (user == null) {
-            user = userRepo.save(request.getUser());
-        }
-
+      
         ShippingAddress shippingAddress = request.getShippingAddress();
         
         addressRepo.save(shippingAddress);
@@ -66,7 +56,7 @@ public class OrderServiceImpl {
         
         Order order = new Order();
         
-        order.setUser(user);
+        order.setEmail(request.getEmail());
         
         order.setShippingAddress(shippingAddress);
         
@@ -84,7 +74,7 @@ public class OrderServiceImpl {
          
          orderRequest.put("currency", "INR");
          
-         orderRequest.put("receipt", request.getUser().getEmail());
+         orderRequest.put("receipt", request.getEmail());
          
          this.client = new RazorpayClient(razorpayKey,razorpaySecret);
          

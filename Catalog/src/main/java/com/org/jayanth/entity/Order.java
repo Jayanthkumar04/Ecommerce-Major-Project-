@@ -37,10 +37,7 @@ public class Order {
 	
 	private String razorPaymentId;
 	
-	
-	@ManyToOne
-	@JoinColumn(name="userId",nullable=false)
-	private User user;
+	private String email;
 	
 	@ManyToOne
 	@JoinColumn(name="addressId",nullable = false)
@@ -51,6 +48,7 @@ public class Order {
 	private List<OrderItems> orderItems;
 
 	
+	
 
 	public Order() {
 		super();
@@ -60,7 +58,7 @@ public class Order {
 
 
 	public Order(Long orderId, String orderTrackingNum, Long totalQuantity, Double totalPrice, String orderStatus,
-			LocalDateTime dateCreated, LocalDateTime lastUpdated, String razorPaymentId, User user,
+			LocalDateTime dateCreated, LocalDateTime lastUpdated, String razorPaymentId,String email,
 			ShippingAddress shippingAddress, List<OrderItems> orderItems) {
 		super();
 		this.orderId = orderId;
@@ -71,9 +69,9 @@ public class Order {
 		this.dateCreated = dateCreated;
 		this.lastUpdated = lastUpdated;
 		this.razorPaymentId = razorPaymentId;
-		this.user = user;
 		this.shippingAddress = shippingAddress;
 		this.orderItems = orderItems;
+		this.email = email;
 	}
 
 
@@ -174,16 +172,7 @@ public class Order {
 
 
 
-	public User getUser() {
-		return user;
-	}
-
-
-
-	public void setUser(User user) {
-		this.user = user;
-	}
-
+	
 
 
 	public ShippingAddress getShippingAddress() {
@@ -210,12 +199,24 @@ public class Order {
 
 
 
+	public String getEmail() {
+		return email;
+	}
+
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", orderTrackingNum=" + orderTrackingNum + ", totalQuantity="
 				+ totalQuantity + ", totalPrice=" + totalPrice + ", orderStatus=" + orderStatus + ", dateCreated="
-				+ dateCreated + ", lastUpdated=" + lastUpdated + ", razorPaymentId=" + razorPaymentId + ", user=" + user
-				+ ", shippingAddress=" + shippingAddress + ", orderItems=" + orderItems + "]";
+				+ dateCreated + ", lastUpdated=" + lastUpdated + ", razorPaymentId=" + razorPaymentId + ", email="
+				+ email + ", shippingAddress=" + shippingAddress + ", orderItems=" + orderItems + "]";
 	}
 	
 	
