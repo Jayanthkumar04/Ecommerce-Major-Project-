@@ -7,6 +7,7 @@ import { CartItems } from '../common/cart-items';
 import { CartService } from '../services/cart.service';
 import { OrderService } from '../services/order.service';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 declare var Razorpay:any;
@@ -24,7 +25,7 @@ export class CheckoutComponent implements OnInit{
   totalPrice:number=0;
   cartItems:CartItems[]=[];
 
-  constructor(private fb:FormBuilder,private cartService:CartService,private orderService:OrderService,private router:Router){
+  constructor(private fb:FormBuilder,private cartService:CartService,private orderService:OrderService,private router:Router,private toaster:ToastrService){
 
   }
 
@@ -60,8 +61,7 @@ export class CheckoutComponent implements OnInit{
 
   placeOrder()
   {
-    console.log("cmng inside placeorder")
-
+    
     const checkoutData:OrderRequest={
       ...this.checkoutForm.value,
       orderItems:this.cartItems,
@@ -88,7 +88,7 @@ export class CheckoutComponent implements OnInit{
 
           this.orderService.verifyPayment(paymentResponse)
               .subscribe(res => {
-                 alert("Payment Successful ✅");
+                 this.toaster.success("payment successfull","please note the order id and the same are shared to email also");
                  this.router.navigate(['/order-success', res.orderTrackingNum]);
               });
         },
@@ -105,7 +105,7 @@ export class CheckoutComponent implements OnInit{
 
       },
       error:(error)=>{
-        alert("please check the details u have entered we will change frontend validations later");
+        this.toaster.error("Transaction is failed please enter correct details");
       }
     })
     

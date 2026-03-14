@@ -1,0 +1,39 @@
+<div class="detail-section">
+  <div class="container-fluid login-container">
+
+    <form [formGroup]="loginForm" (ngSubmit)="loginUser()" class="login-form">
+
+      <h2 class="login-title">Login</h2>
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter email">
+
+
+        <small *ngIf="loginForm.controls['email'].touched && loginForm.controls['email'].invalid" class="text-danger">
+          please type valid email id
+        </small>
+      </div>
+
+      <div class="input-group">
+        <label>Password</label>
+        <input type="password" formControlName="password" placeholder="Enter password">
+
+        <small *ngIf="loginForm.controls['password'].touched && loginForm.controls['password'].invalid"
+          class="text-danger">
+          please type password
+        </small>
+      </div>
+
+      <button class="login-btn">Login</button>
+
+      <div class="login-links">
+        <a routerLink="/change-password">Change Password</a>
+        <a routerLink="/forgot-password">Forgot Password?</a>
+        <a routerLink="/register">Create Account</a>
+      </div>
+
+    </form>
+
+  </div>
+</div>

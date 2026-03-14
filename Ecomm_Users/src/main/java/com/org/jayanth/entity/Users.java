@@ -1,17 +1,13 @@
 package com.org.jayanth.entity;
 
 import jakarta.persistence.Entity;
-<<<<<<< HEAD
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-=======
->>>>>>> c1ceaf78c74f07acefc55d52dac55afe4c71b5c7
 
 @Entity
 public class Users {
 
-<<<<<<< HEAD
 	@Id
 	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -143,8 +139,5 @@ public class Users {
 	
 	
 	
-	
-=======
->>>>>>> c1ceaf78c74f07acefc55d52dac55afe4c71b5c7
 	
 }

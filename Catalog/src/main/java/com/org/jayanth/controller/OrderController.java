@@ -17,6 +17,7 @@ import com.org.jayanth.service.OrderServiceImpl;
 @RestController
 @RequestMapping("/api/orders")
 @CrossOrigin("http://localhost:4200")
+
 public class OrderController {
 
 	@Autowired

@@ -11,21 +11,23 @@
           </button>
         </form>
         <div class="cart-area d-n">
+
+          <h3 *ngIf=""> </h3>
           <a routerLink="cart-detail">
             <div class="total">{{totalPrice|currency:'INR'}} <span> {{totalQuantity}}</span> </div>
             <a routerLink="cart-detail"> <i class="fa fa-shopping-cart" aria-hidden="true"></i></a>
           </a>
-          <a routerLink="/">
-    <button class="au-btn-submit login-btn">
-      Login
-    </button>
-  </a>
+          <a routerLink="/login">
+            <button class="au-btn-submit login-btn m-3">
+              Login
+            </button>
+          </a>
 
         </div>
       </div>
       <div class="account-wrap">
 
-        
+
       </div>
     </div>
   </div>

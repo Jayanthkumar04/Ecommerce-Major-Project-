@@ -1,3 +1,5 @@
+
+
 /* 
  * ----------------------------
  * Common CSS
@@ -11,7 +13,6 @@
     -moz-box-sizing:border-box;
     box-sizing:border-box
 }
-
 body{
     font-family:Poppins,sans-serif;
     font-weight:400;
@@ -116,8 +117,8 @@ a,a:hover{
 }
 
 .main-content{
-    padding-top:116px;
-    min-height:100vh
+    padding-top:50px;
+    min-height:90vh;   
 }
 
 aside.menu-sidebar.d-none.d-lg-block.clr{
@@ -1056,4 +1057,86 @@ footer ul li{
         width: 30%;
     }
     
+}
+
+
+/* Login Section */
+
+.login-container{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+.login-form{
+    width:350px;
+    background:#ffffff;
+    padding:30px;
+    border-radius:10px;
+    box-shadow:0 3px 10px rgba(0,0,0,0.1);
+}
+
+.login-title{
+    text-align:center;
+    font-weight:bold;
+    margin-bottom:20px;
+    color:#205b8d;
+}
+
+.input-group{
+    margin-bottom:15px;
+    display:flex;
+    flex-direction:column;
+}
+
+.input-group label{
+    margin-bottom:5px;
+    font-weight:500;
+}
+
+.input-group input{
+    height:40px;
+    border-radius:25px;
+    border:1px solid #ccc;
+    padding:0 15px;
+}
+
+.login-btn{
+    width:100%;
+    height:40px;
+    background:#205b8d;
+    color:#fff;
+    border-radius:25px;
+    margin-top:10px;
+}
+
+.login-btn:hover{
+    background:#05143f;
+}
+
+.login-links{
+    margin-top:15px;
+    display:flex;
+    flex-direction:column;
+    text-align:center;
+    gap:5px;
+}
+
+.login-links a{
+    color:#0da8e4;
+    font-size:14px;
+}
+
+.login-links a:hover{
+    text-decoration:underline;
+}
+/*
+
+TOASTER
+
+*/
+.toast-top-right {
+  top: 20px !important;
+  right: 20px !important;
+  position: fixed !important;
 }

@@ -29,6 +29,10 @@ public class UserServiceImpl {
 	{
 		
 		Users user = new Users();
+		
+		Users findUser = findByEmail(dto.getEmail());
+		
+		if(findUser != null) throw new RuntimeException("user already exist");
 		String tempPassword = passwordGenerator();
 		user.setEmail(dto.getEmail());
 		user.setName(dto.getName());

@@ -1,23 +1,26 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, RouterLink, RouterModule } from '@angular/router';
 import { CartService } from '../../services/cart.service';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe} from '@angular/common';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CurrencyPipe, RouterLink,RouterModule],
+  imports: [CurrencyPipe, RouterLink, RouterModule, CommonModule],
   templateUrl: './header.component.html',
   styleUrl: './header.component.css'
 })
 export class HeaderComponent implements OnInit{
 
-
+  
+  name:string="";
   totalQuantity:number=0
   totalPrice:number=0
 
   constructor(private router:Router,private cartService:CartService)
   {
+
+     localStorage.getItem("user");
 
   }
 
