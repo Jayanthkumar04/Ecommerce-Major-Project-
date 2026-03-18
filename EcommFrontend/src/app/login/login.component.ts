@@ -4,6 +4,7 @@ import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 import { ToastrService } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
+import { LoginSuccess } from '../common/login-success';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ loginForm!:FormGroup;
 
 isFilled=false;
 
+user!:LoginSuccess;
 
 constructor(private http:AuthService,private toaster:ToastrService,private fb:FormBuilder,private router:Router){
 
@@ -40,11 +42,19 @@ loginUser()
 
   this.http.loginUser(this.loginForm.value).subscribe({
     next:(data)=>{
-          localStorage.setItem("user",JSON.stringify(data));
-          console.log(data);
+
+      
+      if(data.firstLogin)
+      {
+        this.toaster.error("please reset password before login");
+        return;
+      }
+
+          this.user = data;
           this.toaster.success("login is sucessfull");
+          this.http.setLogin(data.name,data.role);
           this.loginForm.reset();
-          this.router.navigate(["/orders-dashboard"]);
+          this.router.navigate(["/"]);
     },
     error:(error)=>{
       this.toaster.error("Something went wrong","please check credentials");

@@ -1,33 +1,67 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Register } from '../common/register';
-import { Observable } from 'rxjs';
-import { Login } from '../common/login';
-import { ForgotPassword } from '../common/forgot-password';
-import { ChangePassword } from '../common/change-password';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { LoginSuccess } from '../common/login-success';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
 
-  public baseUrl = "http://localhost:8083/users"
-  constructor(private http:HttpClient) { }
+  private baseUrl = "http://localhost:8083/users";
 
-  registerUser(data:Register):Observable<Register>{
-    return this.http.post<Register>(`${this.baseUrl}/register`,data);
+  constructor(private http: HttpClient) {}
+
+  // 🔥 LOGIN STATE MANAGEMENT
+  private loginStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
+  loginStatus$ = this.loginStatus.asObservable();
+
+  // ---------------- API CALLS ----------------
+
+  registerUser(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/register`, data);
   }
 
-  loginUser(data:Login){
-    return this.http.post(`${this.baseUrl}/login`,data);
+  loginUser(data: any): Observable<LoginSuccess> {
+    return this.http.post<LoginSuccess>(`${this.baseUrl}/login`, data);
   }
 
-  forgotPassword(data:ForgotPassword):Observable<ForgotPassword>{
-    return this.http.post<ForgotPassword>(`${this.baseUrl}/forgot-password`,data);
+  forgotPassword(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/forgot-password`, data);
   }
 
-  changePassword(data:ChangePassword):Observable<ChangePassword>{
-    return this.http.post<ChangePassword>(`${this.baseUrl}/change-password`,data);
+  changePassword(data: any): Observable<any> {
+    return this.http.post(`${this.baseUrl}/reset-password`, data);
   }
 
+  // ---------------- LOGIN STATE METHODS ----------------
+
+  setLogin(name:string,role:string) {
+   
+    localStorage.setItem("login", "yes");
+    localStorage.setItem("name", name);
+    localStorage.setItem("role", role);
+    console.log(role);
+    this.loginStatus.next(true);
+
+  }
+
+  logout() {
+    localStorage.removeItem("login");
+    localStorage.removeItem("name");
+    localStorage.removeItem("role");
+    this.loginStatus.next(false);
+  }
+
+  isLoggedIn(): boolean {
+    return localStorage.getItem("login") === "yes";
+  }
+
+  getUserName(): string {
+    return localStorage.getItem("name") || "";
+  }
+
+  getUserRole():string{
+    return localStorage.getItem("role") || "ROLE_USER";
+  }
 }

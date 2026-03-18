@@ -83,7 +83,7 @@ public class UserServiceImpl {
 	{
 		
 		String resetPassword = passwordGenerator();
-		String link = "http://localhost:4200/reset-password";
+		String link = "http://localhost:4200/change-password/"+email;
 		
 		
 		Users user = findByEmail(email);

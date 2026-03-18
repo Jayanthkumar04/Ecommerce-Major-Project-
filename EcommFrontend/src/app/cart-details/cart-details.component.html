@@ -1,4 +1,11 @@
-<div class="detail-section">
+<div class="details-section">
+  
+  <div *ngIf="cartItems.length==0" class="alert alert-warning col-md-12">
+    <br><br>
+    Cart is Empty
+  </div>
+</div>
+<div class="detail-section" *ngIf="cartItems.length > 0">
   <div class="container-fluid">
 
     <table class="table table-bordered">

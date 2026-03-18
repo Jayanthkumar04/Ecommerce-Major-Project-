@@ -9,6 +9,7 @@ import { RegisterComponent } from './register/register.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { OrderDashboardComponent } from './order-dashboard/order-dashboard.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   {path:'search/:keyword',component:ProductListComponent},
@@ -25,6 +26,7 @@ export const routes: Routes = [
   {path:'change-password/:email',component:ChangePasswordComponent},
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'orders-dashboard',component:OrderDashboardComponent},
+  {path:'admin-dashboard',component:AdminDashboardComponent},
   {path:'',component:ProductListComponent,pathMatch:'full'},
   {path:'**',component:ProductListComponent,pathMatch:'full'},
 

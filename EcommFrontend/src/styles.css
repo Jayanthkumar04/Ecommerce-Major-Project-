@@ -308,6 +308,19 @@ input.au-input.au-input-xl{
     transform:translate(-50%,-50%)
 }
 
+.cart-area {
+  display: flex !important;
+  align-items: center;
+  gap: 5px;
+}
+
+.cart-link {
+  display: flex;
+  align-items: center;
+}
+
+
+
 /* 
  * ----------------------------
  * Left Menu Bar
@@ -1139,4 +1152,82 @@ TOASTER
   top: 20px !important;
   right: 20px !important;
   position: fixed !important;
+}
+
+
+
+/* ================================
+   HEADER CART FIX (FINAL CLEAN)
+================================ */
+
+/* Force cart area to behave properly */
+.cart-area {
+  display: flex !important;
+  align-items: center;
+  gap: 15px;
+}
+
+/* Greeting text */
+.cart-area h6 {
+  margin: 0;
+  font-weight: 600;
+  color: #333;
+  white-space: nowrap;
+}
+
+/* Cart link container */
+.cart-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+}
+
+/* Remove old float behavior */
+.cart-area i,
+.total {
+  float: none !important;
+}
+
+/* Cart icon */
+.cart-area i {
+  font-size: 22px;
+  color: #fff;
+  margin: 0;
+}
+
+/* Total price box */
+.total {
+  display: flex;
+  align-items: center;
+  background: #205b8d;
+  color: #fff;
+  border-radius: 30px;
+  border: 1px solid #0da8e4;
+  height: 43px;
+  padding-left: 15px;
+}
+
+/* Quantity badge */
+.total span {
+  display: inline-block;
+  background: #fff;
+  padding: 0 12px;
+  color: #000;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  margin-left: 10px;
+}
+
+/* Login / Logout button */
+.login-btn {
+  height: 43px;
+  padding: 0 20px;
+  border-radius: 30px;
+  background: #205b8d;
+  color: #fff;
+}
+
+.login-btn:hover {
+  background: #05143f;
 }

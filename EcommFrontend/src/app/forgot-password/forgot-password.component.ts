@@ -21,13 +21,14 @@ export class ForgotPasswordComponent {
   {
 
     this.forgotPasswordForm = this.fb.group({
-      email:["",[Validators.required,Validators.required]]
+      email:["",[Validators.required]]
     })
   }
 
 
   forgotPassword()
   {
+    console.log(this.forgotPasswordForm.value)
     if(this.forgotPasswordForm.invalid) {
       this.toaster.warning("please fill the details");
       return;
