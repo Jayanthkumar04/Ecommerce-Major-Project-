@@ -42,6 +42,7 @@ public class OrderSpecification {
                                 filter.getEndDate()
                         ));
             }
+            
             return predicate;
         };
     }

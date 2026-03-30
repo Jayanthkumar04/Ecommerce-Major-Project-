@@ -9,4 +9,7 @@ import com.org.jayanth.entity.Order;
 public interface OrderRepo extends JpaRepository<Order, Long>{
 
 	Order findByRazorPaymentId(String id);
+	
+	
+    Order findByRazorOrderId(String razorpayOrderId);
 }

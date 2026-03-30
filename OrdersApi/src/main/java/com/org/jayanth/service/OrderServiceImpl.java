@@ -17,6 +17,7 @@ import com.org.jayanth.entity.ShippingAddress;
 import com.org.jayanth.repo.OrderItemsRepo;
 import com.org.jayanth.repo.OrderRepo;
 import com.org.jayanth.repo.ShippingAddressRepo;
+import com.razorpay.Payment;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 
@@ -125,11 +126,34 @@ public CheckoutResponse verifyPayment(String razorpayOrderId,String razorpayPaym
 		            razorpaySecret
 		        		);
 		
+		if(!generatedSignature) {
 		
-		Order order = orderRepo.findByRazorPaymentId(razorpayOrderId);
+			throw new RuntimeException("invalid payment signature");
+		}
 		
+		RazorpayClient razorpayClient = new RazorpayClient(razorpayKey,razorpaySecret);
+		
+		Payment payment = razorpayClient.payments.fetch(razorpayPaymentId);
+		
+        String status = payment.get("status");
+		
+		if (!"captured".equalsIgnoreCase(status)) {
+            throw new RuntimeException("Payment not successful");
+        }
+		
+		
+		Order order = orderRepo.findByRazorOrderId(razorpayOrderId);
+
+		if (order == null) {
+            throw new RuntimeException("Order not found");
+        }
+		
+	   LocalDateTime deliveryDate = LocalDateTime.now().plusDays(2);
+	   order.setDeliveryDate(deliveryDate);
 		order.setOrderStatus("PAID");
-	    orderRepo.save(order);
+		order.setRazorPaymentId(razorpayPaymentId);
+
+		orderRepo.save(order);
 	    
 	    CheckoutResponse response = new CheckoutResponse(order.getOrderId(),order.getRazorPaymentId(),order.getOrderTrackingNum(),order.getTotalPrice());
 	    

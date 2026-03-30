@@ -11,7 +11,6 @@ import com.jayanth.ecommerce.entity.Order;
 @Repository
 public interface OrderRepo extends JpaRepository<Order, Long>,JpaSpecificationExecutor<Order>{
 
-	
 
 	
 	

@@ -35,6 +35,8 @@ public class Order {
 
 	private LocalDateTime lastUpdated;
 	
+	private LocalDateTime deliveryDate;
+	
 	private String razorPaymentId;
 	
 	private String email;
@@ -56,10 +58,13 @@ public class Order {
 	}
 
 
+     
+
+
 
 	public Order(Long orderId, String orderTrackingNum, Long totalQuantity, Double totalPrice, String orderStatus,
-			LocalDateTime dateCreated, LocalDateTime lastUpdated, String razorPaymentId,String email,
-			ShippingAddress shippingAddress, List<OrderItems> orderItems) {
+			LocalDateTime dateCreated, LocalDateTime lastUpdated, LocalDateTime deliveryDate, String razorPaymentId,
+			String email, ShippingAddress shippingAddress, List<OrderItems> orderItems) {
 		super();
 		this.orderId = orderId;
 		this.orderTrackingNum = orderTrackingNum;
@@ -68,11 +73,15 @@ public class Order {
 		this.orderStatus = orderStatus;
 		this.dateCreated = dateCreated;
 		this.lastUpdated = lastUpdated;
+		this.deliveryDate = deliveryDate;
 		this.razorPaymentId = razorPaymentId;
+		this.email = email;
 		this.shippingAddress = shippingAddress;
 		this.orderItems = orderItems;
-		this.email = email;
 	}
+
+
+
 
 
 
@@ -211,13 +220,38 @@ public class Order {
 
 
 
+	public LocalDateTime getDeliveryDate() {
+		return deliveryDate;
+	}
+
+
+
+
+
+
+	public void setDeliveryDate(LocalDateTime deliveryDate) {
+		this.deliveryDate = deliveryDate;
+	}
+
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", orderTrackingNum=" + orderTrackingNum + ", totalQuantity="
 				+ totalQuantity + ", totalPrice=" + totalPrice + ", orderStatus=" + orderStatus + ", dateCreated="
-				+ dateCreated + ", lastUpdated=" + lastUpdated + ", razorPaymentId=" + razorPaymentId + ", email="
-				+ email + ", shippingAddress=" + shippingAddress + ", orderItems=" + orderItems + "]";
+				+ dateCreated + ", lastUpdated=" + lastUpdated + ", deliveryDate=" + deliveryDate + ", razorPaymentId="
+				+ razorPaymentId + ", email=" + email + ", shippingAddress=" + shippingAddress + ", orderItems="
+				+ orderItems + "]";
 	}
+
+
+
+
+
+
 	
 	
 	
