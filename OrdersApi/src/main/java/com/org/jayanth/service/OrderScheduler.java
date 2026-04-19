@@ -5,6 +5,8 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +23,7 @@ public class OrderScheduler {
 	@Autowired
 	private EmailServiceImpl emailServiceImpl;
 	
-	@Scheduled(cron = "0 48 16 * * ?",zone = "Asia/Kolkata")
+	@Scheduled(cron = "0 53 12 * * ?",zone = "Asia/Kolkata")
 	public void sendDeliveryReminder()
 	{
 		System.out.println("Running Delivery Reminder........");
@@ -31,11 +33,15 @@ public class OrderScheduler {
 		LocalDateTime start = today.atStartOfDay(); // 00:00
 		
         LocalDateTime end = today.atTime(23, 59, 59); // 23:59
-
+      
+        int page = 0,size=50;
         
-        List<Order> orders = orderRepo.findOrdersForDeliveryToday(start, end, "PAID");
+        Page<Order> orderPage;
         
-        for (Order order : orders) {
+        do {
+         orderPage = orderRepo.findOrdersForDeliveryToday(start, end, "PAID",PageRequest.of(page, size));
+        
+        for (Order order : orderPage.getContent()) {
 
             try {
                 String subject = "Out for Delivery 🚚";
@@ -55,18 +61,28 @@ public class OrderScheduler {
                 e.printStackTrace();
             }
         }
+        }while(orderPage.hasNext());
 
 	}
 	
 	
-	@Scheduled(cron = "0 48 16 * * ?", zone = "Asia/Kolkata") // 10 AM daily
+	@Scheduled(cron = "0 42 12 * * ?", zone = "Asia/Kolkata") // 10 AM daily
 	public void sendPaymentReminder() {
 
 	    System.out.println("Running payment reminder...");
+	    
+	    int page =0;
+	    
+	    int size =50;
+	    
+	    
+	    Page<Order> orderPage;
+	    
+	    do {
 
-	    List<Order> orders = orderRepo.findByOrderStatus("created");
+	    orderPage = orderRepo.findByOrderStatus("created",PageRequest.of(page,size));
 
-	    for (Order order : orders) {
+	    for (Order order : orderPage.getContent()) {
 
 	        try {
 	            String subject = "Payment Reminder 💳";
@@ -87,5 +103,9 @@ public class OrderScheduler {
 	            e.printStackTrace();
 	        }
 	    }
+	    
+	    page++;
+	}while(orderPage.hasNext());
+	    
 	}
 }

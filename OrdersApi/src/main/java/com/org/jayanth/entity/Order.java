@@ -41,6 +41,10 @@ public class Order {
     private String razorpayPaymentId;
 
     private String email;
+    
+    private String invoiceUrl;
+    
+    private String invoiceStatus;
 
     @ManyToOne
     @JoinColumn(name="addressId", nullable = false)
@@ -52,9 +56,13 @@ public class Order {
     public Order() {}
 
     
-    public Order(Long orderId, String orderTrackingNum, Long totalQuantity, Double totalPrice, String orderStatus,
+    
+
+
+	public Order(Long orderId, String orderTrackingNum, Long totalQuantity, Double totalPrice, String orderStatus,
 			LocalDateTime dateCreated, LocalDateTime lastUpdated, LocalDateTime deliveryDate, String razorpayOrderId,
-			String razorpayPaymentId, String email, ShippingAddress shippingAddress, List<OrderItems> orderItems) {
+			String razorpayPaymentId, String email, String invoiceUrl, String invoiceStatus,
+			ShippingAddress shippingAddress, List<OrderItems> orderItems) {
 		super();
 		this.orderId = orderId;
 		this.orderTrackingNum = orderTrackingNum;
@@ -67,9 +75,14 @@ public class Order {
 		this.razorpayOrderId = razorpayOrderId;
 		this.razorpayPaymentId = razorpayPaymentId;
 		this.email = email;
+		this.invoiceUrl = invoiceUrl;
+		this.invoiceStatus = invoiceStatus;
 		this.shippingAddress = shippingAddress;
 		this.orderItems = orderItems;
 	}
+
+
+
 
 
 	// ================= GETTERS & SETTERS =================
@@ -178,13 +191,48 @@ public class Order {
 		this.orderItems = orderItems;
 	}
 
+	
+	
+	public String getInvoiceUrl() {
+		return invoiceUrl;
+	}
+
+
+
+
+
+	public void setInvoiceUrl(String invoiceUrl) {
+		this.invoiceUrl = invoiceUrl;
+	}
+
+
+
+
+
+	public String getInvoiceStatus() {
+		return invoiceStatus;
+	}
+
+
+
+
+
+	public void setInvoiceStatus(String invoiceStatus) {
+		this.invoiceStatus = invoiceStatus;
+	}
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "Order [orderId=" + orderId + ", orderTrackingNum=" + orderTrackingNum + ", totalQuantity="
 				+ totalQuantity + ", totalPrice=" + totalPrice + ", orderStatus=" + orderStatus + ", dateCreated="
 				+ dateCreated + ", lastUpdated=" + lastUpdated + ", deliveryDate=" + deliveryDate + ", razorpayOrderId="
-				+ razorpayOrderId + ", razorpayPaymentId=" + razorpayPaymentId + ", email=" + email
-				+ ", shippingAddress=" + shippingAddress + ", orderItems=" + orderItems + "]";
+				+ razorpayOrderId + ", razorpayPaymentId=" + razorpayPaymentId + ", email=" + email + ", invoiceUrl="
+				+ invoiceUrl + ", invoiceStatus=" + invoiceStatus + ", shippingAddress=" + shippingAddress
+				+ ", orderItems=" + orderItems + "]";
 	}
 
     

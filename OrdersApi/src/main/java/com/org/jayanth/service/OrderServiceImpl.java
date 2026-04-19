@@ -52,6 +52,9 @@ public class OrderServiceImpl {
 	
 	private RazorpayClient client;
 	
+	@Autowired
+	private S3Service s3Service;
+	
 	
 	@Transactional
 	public CheckoutResponse createOrder(CheckoutRequest request) throws Exception{
@@ -64,7 +67,7 @@ public class OrderServiceImpl {
         
         
         Order order = new Order();
-        
+        System.out.println("email in create order"+request.getUser().getEmail());
         order.setEmail(request.getUser().getEmail());
         
         order.setShippingAddress(shippingAddress);
@@ -168,6 +171,8 @@ orderRepo.save(order);
 
 try {
     File invoice = invoiceService.generateInvoice(order);
+    
+    String fileUrl = s3Service.uploadFile(invoice);
 
     String subject = "Order Confirmed - " + order.getOrderTrackingNum();
 
@@ -175,13 +180,23 @@ try {
             + "Order ID: " + order.getOrderId() + "\n"
             + "Tracking Number: " + order.getOrderTrackingNum() + "\n"
             + "Amount: ₹" + order.getTotalPrice() + "\n\n"
+            +"Download Invoice : "+fileUrl+"\n\n"
             + "Thank you for shopping with us!";
+    
+    
+    order.setInvoiceUrl(fileUrl);
+    order.setInvoiceStatus("GENERATED");
+    
+    orderRepo.save(order);
 
+    System.out.println("email in verify payment "+order.getEmail());
+    invoice.delete();
+    
     emailServiceImpl.sendOrderConfirmation(
         order.getEmail(),
         subject,
         body,
-        invoice
+        null
     );
 
 } catch (Exception e) {

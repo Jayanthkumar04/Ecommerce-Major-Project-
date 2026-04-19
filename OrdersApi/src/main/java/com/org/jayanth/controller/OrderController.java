@@ -2,6 +2,8 @@ package com.org.jayanth.controller;
 
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -27,10 +29,13 @@ public class OrderController {
 	@Autowired
     private OrderServiceImpl orderService;
 	
+	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
+	
 	@PostMapping("/checkout")
     public ResponseEntity<CheckoutResponse> checkout(@RequestBody CheckoutRequest request) throws Exception {
 
-		System.out.println("checkout controller");
+
+		logger.info("Received checkout request for ");
         CheckoutResponse response = orderService.createOrder(request);
 
         return ResponseEntity.ok(response);

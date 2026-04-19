@@ -3,6 +3,8 @@ package com.org.jayanth.repo;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -19,13 +21,14 @@ public interface OrderRepo extends JpaRepository<Order, Long>{
     Order findByRazorpayOrderId(String razorpayOrderId);
     
     @Query("SELECT o FROM Order o WHERE o.deliveryDate BETWEEN :start AND :end AND o.orderStatus=:status")
-    List<Order> findOrdersForDeliveryToday(
+    Page<Order> findOrdersForDeliveryToday(
     		
     		@Param("start") LocalDateTime start,
     		@Param("end")  LocalDateTime end,
-    		@Param("status") String status
+    		@Param("status") String status,
+    		Pageable pageable
     		);
     
     
-    List<Order> findByOrderStatus(String status);
+    Page<Order> findByOrderStatus(String status,Pageable pageable);
 }

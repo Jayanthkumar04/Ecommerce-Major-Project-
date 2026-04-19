@@ -1,24 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <qualifiedTypeNameHistroy>
-    <fullyQualifiedTypeName name="java.util.Set"/>
-    <fullyQualifiedTypeName name="jakarta.persistence.metamodel.EntityType"/>
-    <fullyQualifiedTypeName name="java.util.ArrayList"/>
-    <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
-    <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
-    <fullyQualifiedTypeName name="org.springframework.data.repository.query.Param"/>
-    <fullyQualifiedTypeName name="org.hibernate.dialect.function.json.JsonObjectAggFunction"/>
-    <fullyQualifiedTypeName name="org.json.JSONObject"/>
-    <fullyQualifiedTypeName name="com.razorpay.RazorpayClient"/>
-    <fullyQualifiedTypeName name="javax.swing.plaf.metal.MetalBorders.ToolBarBorder"/>
-    <fullyQualifiedTypeName name="com.razorpay.Order"/>
-    <fullyQualifiedTypeName name="com.jay.test.service.StudentService"/>
-    <fullyQualifiedTypeName name="com.jay.test.dto.StudentOrder"/>
-    <fullyQualifiedTypeName name="org.springframework.http.HttpStatusCode"/>
-    <fullyQualifiedTypeName name="com.org.jayanth.repo.UserRepo"/>
-    <fullyQualifiedTypeName name="com.org.jayanth.dto.RegisterDto"/>
-    <fullyQualifiedTypeName name="org.springframework.mail.javamail.JavaMailSender"/>
-    <fullyQualifiedTypeName name="org.springframework.mail.SimpleMailMessage"/>
-    <fullyQualifiedTypeName name="org.apache.catalina.User"/>
     <fullyQualifiedTypeName name="com.org.jayanth.entity.Users"/>
     <fullyQualifiedTypeName name="com.org.jayanth.dto.RegisterResponseDto"/>
     <fullyQualifiedTypeName name="com.org.jayanth.service.EmailServiceImpl"/>
@@ -30,7 +11,6 @@
     <fullyQualifiedTypeName name="com.org.jayanth.dto.ResetPasswordDto"/>
     <fullyQualifiedTypeName name="com.org.jayanth.dto.ResetPasswordResponse"/>
     <fullyQualifiedTypeName name="java.lang.Long"/>
-    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
     <fullyQualifiedTypeName name="com.jayanth.ecommerce.repo.AdminDashboardRepo"/>
     <fullyQualifiedTypeName name="com.jayanth.ecommerce.entity.AdminDashboard"/>
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestMapping"/>
@@ -47,7 +27,6 @@
     <fullyQualifiedTypeName name="org.springframework.web.bind.annotation.RequestBody"/>
     <fullyQualifiedTypeName name="com.jayanth.ecommerce.dto.FilterRequest"/>
     <fullyQualifiedTypeName name="com.jayanth.ecommerce.repo.OrderRepo"/>
-    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Entity"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Table"/>
     <fullyQualifiedTypeName name="jakarta.persistence.Id"/>
@@ -60,4 +39,25 @@
     <fullyQualifiedTypeName name="jakarta.persistence.CascadeType"/>
     <fullyQualifiedTypeName name="java.util.List"/>
     <fullyQualifiedTypeName name="com.org.jayanth.entity.Order"/>
+    <fullyQualifiedTypeName name="org.springframework.scheduling.annotation.Async"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Configuration"/>
+    <fullyQualifiedTypeName name="org.springframework.scheduling.annotation.EnableAsync"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.Executor"/>
+    <fullyQualifiedTypeName name="java.util.concurrent.ThreadPoolExecutor"/>
+    <fullyQualifiedTypeName name="org.springframework.scheduling.concurrent.ThreadPoolExecutorFactoryBean"/>
+    <fullyQualifiedTypeName name="org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Pageable"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.PageRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.data.domain.Page"/>
+    <fullyQualifiedTypeName name="software.amazon.awssdk.auth.credentials.AwsBasicCredentials"/>
+    <fullyQualifiedTypeName name="software.amazon.awssdk.auth.credentials.StaticCredentialsProvider"/>
+    <fullyQualifiedTypeName name="software.amazon.awssdk.regions.Region"/>
+    <fullyQualifiedTypeName name="org.springframework.stereotype.Service"/>
+    <fullyQualifiedTypeName name="software.amazon.awssdk.services.s3.S3Client"/>
+    <fullyQualifiedTypeName name="java.io.File"/>
+    <fullyQualifiedTypeName name="software.amazon.awssdk.services.s3.model.PutObjectRequest"/>
+    <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.org.jayanth.service.S3Service"/>
+    <fullyQualifiedTypeName name="org.springframework.context.annotation.Bean"/>
+    <fullyQualifiedTypeName name="software.amazon.awssdk.services.s3.model.ObjectCannedACL"/>
 </qualifiedTypeNameHistroy>
