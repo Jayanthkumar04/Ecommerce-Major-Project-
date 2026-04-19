@@ -26,7 +26,7 @@ export class CheckoutComponent implements OnInit{
   cartItems:CartItems[]=[];
 
   constructor(private fb:FormBuilder,private cartService:CartService,private orderService:OrderService,private router:Router,private toaster:ToastrService){
-
+  
   }
 
   ngOnInit(): void {
@@ -99,12 +99,13 @@ export class CheckoutComponent implements OnInit{
 
         };
         const rzp = new Razorpay(options);
-      rzp.open();
+        rzp.open();
         
 
 
       },
       error:(error)=>{
+        console.log("full error ",error);
         this.toaster.error("Transaction is failed please enter correct details");
       }
     })

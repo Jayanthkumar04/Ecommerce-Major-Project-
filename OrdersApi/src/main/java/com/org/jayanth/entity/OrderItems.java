@@ -22,6 +22,8 @@ public class OrderItems {
 	
 	private Long productId;
 	
+	private String name;
+	
 	@ManyToOne
 	@JoinColumn(name="order_id",nullable=false)
 	private Order order;
@@ -32,7 +34,7 @@ public class OrderItems {
 	}
 
 	public OrderItems(Long orderItemId, String imageUrl, Double unitPrice, Integer quantity, Long productId,
-			Order order) {
+			Order order,String name) {
 		super();
 		this.orderItemId = orderItemId;
 		this.imageUrl = imageUrl;
@@ -40,6 +42,7 @@ public class OrderItems {
 		this.quantity = quantity;
 		this.productId = productId;
 		this.order = order;
+		this.name = name;
 	}
 
 	public Long getOrderItemId() {
@@ -89,11 +92,21 @@ public class OrderItems {
 	public void setOrder(Order order) {
 		this.order = order;
 	}
+	
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	@Override
 	public String toString() {
 		return "OrderItems [orderItemId=" + orderItemId + ", imageUrl=" + imageUrl + ", unitPrice=" + unitPrice
-				+ ", quantity=" + quantity + ", productId=" + productId + ", order=" + order + "]";
+				+ ", quantity=" + quantity + ", productId=" + productId + ", name=" + name + ", order=" + order + "]";
 	}
 	
 	

@@ -27,5 +27,9 @@ apiUrl:string="http://localhost:8081/api/orders"
   );
 }
 
+  retryPayment(orderId:number){
+    return this.httpClient.get<OrderResponse>(`${this.apiUrl}/retry/${orderId}`)
+  }
+
 
 }
