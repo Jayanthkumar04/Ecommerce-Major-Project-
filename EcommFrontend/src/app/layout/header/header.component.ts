@@ -37,7 +37,9 @@ export class HeaderComponent implements OnInit {
     });
 
     this.cartService.totalPrice.subscribe(data => {
+
       this.totalPrice = data;
+
     });
 
     // Listen for login changes

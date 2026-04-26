@@ -1,29 +1,28 @@
-package com.org.jayanth.service;
+package com.jayanth.ecommerce.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.org.jayanth.entity.Order;
-import com.org.jayanth.repo.OrderRepo;
+import com.jayanth.ecommerce.client.OrderFeignClient;
+import com.jayanth.ecommerce.dto.NotificationRequestDto;
+import com.jayanth.ecommerce.dto.PageResponseDto;
 
 @Service
 public class OrderScheduler {
 
 	
 	@Autowired
-	private OrderRepo orderRepo;
-	
-	@Autowired
 	private EmailServiceImpl emailServiceImpl;
 	
-	@Scheduled(cron = "0 53 12 * * ?",zone = "Asia/Kolkata")
+	@Autowired
+	private OrderFeignClient orderFeignClient;
+	
+	@Scheduled(cron = "0 09 19 * * ?",zone = "Asia/Kolkata")
 	public void sendDeliveryReminder()
 	{
 		System.out.println("Running Delivery Reminder........");
@@ -36,12 +35,14 @@ public class OrderScheduler {
       
         int page = 0,size=50;
         
-        Page<Order> orderPage;
+        PageResponseDto<NotificationRequestDto> response;
+        
+        
         
         do {
-         orderPage = orderRepo.findOrdersForDeliveryToday(start, end, "PAID",PageRequest.of(page, size));
+         response = orderFeignClient.getOrdersForDeliveryToday(page, size);
         
-        for (Order order : orderPage.getContent()) {
+        for (NotificationRequestDto order : response.getContent()) {
 
             try {
                 String subject = "Out for Delivery 🚚";
@@ -53,20 +54,22 @@ public class OrderScheduler {
                 emailServiceImpl.sendOrderConfirmation(
                         order.getEmail(),
                         subject,
-                        body,
-                        null
+                        body
+                        
                 );
 
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        }while(orderPage.hasNext());
+        
+        page++;
+        }while(!response.isLast());
 
 	}
 	
 	
-	@Scheduled(cron = "0 42 12 * * ?", zone = "Asia/Kolkata") // 10 AM daily
+	@Scheduled(cron = "0 10 19 * * ?", zone = "Asia/Kolkata") // 10 AM daily
 	public void sendPaymentReminder() {
 
 	    System.out.println("Running payment reminder...");
@@ -76,13 +79,13 @@ public class OrderScheduler {
 	    int size =50;
 	    
 	    
-	    Page<Order> orderPage;
+	    PageResponseDto<NotificationRequestDto> response;
 	    
 	    do {
 
-	    orderPage = orderRepo.findByOrderStatus("created",PageRequest.of(page,size));
+	    response = orderFeignClient.getOrdersByStatus("created",page,size);
 
-	    for (Order order : orderPage.getContent()) {
+	    for (NotificationRequestDto order : response.getContent()) {
 
 	        try {
 	            String subject = "Payment Reminder 💳";
@@ -95,8 +98,7 @@ public class OrderScheduler {
 	            emailServiceImpl.sendOrderConfirmation(
 	                    order.getEmail(),
 	                    subject,
-	                    body,
-	                    null
+	                    body
 	            );
 
 	        } catch (Exception e) {
@@ -105,7 +107,7 @@ public class OrderScheduler {
 	    }
 	    
 	    page++;
-	}while(orderPage.hasNext());
+	}while(!response.isLast());
 	    
 	}
 }

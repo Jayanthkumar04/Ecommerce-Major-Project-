@@ -52,9 +52,14 @@ loginUser()
 
           this.user = data;
           this.toaster.success("login is sucessfull");
-          this.http.setLogin(data.name,data.role);
+          this.http.setLogin(data.name,data.role,data.email);
           this.loginForm.reset();
+          if(data.role == 'ROLE_USER'){
           this.router.navigate(["/"]);
+          }
+          if(data.role == 'ROLE_ADMIN'){
+          this.router.navigate(["/admin-dashboard"])
+          }
     },
     error:(error)=>{
       this.toaster.error("Something went wrong","please check credentials");

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { AdminDashboardService } from '../services/admin-dashboard.service';
 import { AdminDashboardResponse } from '../common/admin-dashboard-response';
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-admin-dashboard',
   standalone: true,
-  imports: [CurrencyPipe],
+  imports: [CurrencyPipe,CommonModule],
   templateUrl: './admin-dashboard.component.html',
   styleUrl: './admin-dashboard.component.css'
 })

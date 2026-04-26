@@ -20,6 +20,7 @@ public class AdminDashboard {
 	
 	private Integer totalProducts;
 
+	
 	public AdminDashboard() {
 		super();
 		// TODO Auto-generated constructor stub

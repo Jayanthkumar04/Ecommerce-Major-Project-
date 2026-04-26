@@ -3,6 +3,8 @@ import { Injectable } from '@angular/core';
 import { OrderRequest } from '../common/order-request';
 import { OrderResponse } from '../common/order-response';
 import { Observable } from 'rxjs';
+import { FilterRequest } from '../common/filter-request';
+import { FilterResponse } from '../common/filter-response';
 
 @Injectable({
   providedIn: 'root'
@@ -31,5 +33,15 @@ apiUrl:string="http://localhost:8081/api/orders"
     return this.httpClient.get<OrderResponse>(`${this.apiUrl}/retry/${orderId}`)
   }
 
+
+  getUserOrders(request:FilterRequest)
+  {
+    return this.httpClient.post<FilterResponse[]>(`http://localhost:8083/users/filter`,request);
+  }
+
+  filterOrders(request:FilterRequest)
+  {
+    return this.httpClient.post<FilterResponse[]>(`http://localhost:8083/users/filter`,request);
+  }
 
 }

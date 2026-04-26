@@ -1,4 +1,4 @@
-package com.org.jayanth.service;
+package com.jayanth.ecommerce.service;
 
 import java.io.File;
 
@@ -17,7 +17,7 @@ public class EmailServiceImpl {
 	private JavaMailSender mailSender;
 	
 	@Async("emailExecutor")
-	public void sendOrderConfirmation(String toEmail,String subject,String body,File attachment) throws Exception
+	public void sendOrderConfirmation(String toEmail,String subject,String body) throws Exception
 	{
 		MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
@@ -26,9 +26,6 @@ public class EmailServiceImpl {
         helper.setSubject(subject);
         helper.setText(body);
 
-        if (attachment != null) {
-            helper.addAttachment(attachment.getName(), attachment);
-        }
 
         mailSender.send(message);
 		

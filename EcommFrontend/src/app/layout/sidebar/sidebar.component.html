@@ -5,15 +5,36 @@
       <img src="assets/images/logo/jays-logo.png" alt="ashokit" class="img-responsive">
     </a>
   </div>
-  <div class="menu-sidebar-content js-scrollbar1">
-    <nav class="navbar-sidebar">
-      <ul class="list-unstyled navbar-list" *ngFor="let c of categories">
 
-        <li>
-          <a routerLink="category/{{c.id}}" routerLinkActive="active-link">{{c.categoryName}}</a>
-        </li>
+  <div *ngIf='role== "ROLE_USER"'>
+    <div class="menu-sidebar-content js-scrollbar1">
+      <nav class="navbar-sidebar">
+        <ul class="list-unstyled navbar-list" *ngFor="let c of categories">
 
-      </ul>
-    </nav>
+          <li>
+            <a routerLink="category/{{c.id}}" routerLinkActive="active-link">{{c.categoryName}}</a>
+          </li>
+
+        </ul>
+      </nav>
+    </div>
+  </div>
+
+  <div *ngIf="isLogin && role == 'ROLE_ADMIN'">
+    <div class="menu-sidebar-content js-scrollbar1">
+      <nav class="navbar-sidebar">
+        <ul class="list-unstyled navbar-list">
+
+          <li>
+            <a routerLink="/admin-dashboard" routerLinkActive="active-link">DASHBOARD</a>
+          </li>
+
+          <li>
+            <a routerLink="/filter-orders" routerLinkActive="active-link">Filter ORDERS</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
   </div>
 </aside>

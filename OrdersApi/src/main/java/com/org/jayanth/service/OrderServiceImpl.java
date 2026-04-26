@@ -1,18 +1,29 @@
 package com.org.jayanth.service;
 
 import java.io.File;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import com.org.jayanth.client.CustomerApiClient;
+import com.org.jayanth.client.NotificationApiClient;
 import com.org.jayanth.dto.CheckoutRequest;
 import com.org.jayanth.dto.CheckoutResponse;
+import com.org.jayanth.dto.FilterRequest;
+import com.org.jayanth.dto.FilterResponse;
 import com.org.jayanth.dto.OrderItemDto;
+import com.org.jayanth.dto.OrderResponseDto;
 import com.org.jayanth.entity.Order;
 import com.org.jayanth.entity.OrderItems;
 import com.org.jayanth.entity.ShippingAddress;
@@ -23,6 +34,7 @@ import com.razorpay.Payment;
 import com.razorpay.RazorpayClient;
 import com.razorpay.RazorpayException;
 
+import jakarta.security.auth.message.callback.PrivateKeyCallback.Request;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -38,11 +50,7 @@ public class OrderServiceImpl {
 	@Autowired
 	private ShippingAddressRepo addressRepo;
 	
-	@Autowired
-	private InvoiceService invoiceService;
 	
-	@Autowired
-	private EmailServiceImpl emailServiceImpl;
 	
 	@Value("${razorpay.key.id}")
 	private String razorpayKey;
@@ -52,12 +60,24 @@ public class OrderServiceImpl {
 	
 	private RazorpayClient client;
 	
-	@Autowired
-	private S3Service s3Service;
 	
+	@Autowired
+	private CustomerApiClient customerClient;
+	
+	
+	@Autowired
+	private NotificationApiClient notificationClient;
 	
 	@Transactional
 	public CheckoutResponse createOrder(CheckoutRequest request) throws Exception{
+		
+		
+		boolean userExists = customerClient.userExists(request.getUser().getEmail());
+		
+		if(!userExists)
+		{
+			throw new RuntimeException("can't create order because user doesnot exist");
+		}
 		
 		System.out.println("create order "+request);
       
@@ -167,41 +187,15 @@ order.setOrderStatus("PAID");
 order.setRazorpayPaymentId(razorpayPaymentId);
 order.setDeliveryDate(LocalDateTime.now().plusDays(2));
 
+
+
+
+String fileUrl = notificationClient.generateInvoice(mapToDto(order));
+
+order.setInvoiceUrl(fileUrl);
+
+order.setInvoiceStatus("GENERATED");
 orderRepo.save(order);
-
-try {
-    File invoice = invoiceService.generateInvoice(order);
-    
-    String fileUrl = s3Service.uploadFile(invoice);
-
-    String subject = "Order Confirmed - " + order.getOrderTrackingNum();
-
-    String body = "Hi,\n\nYour order is successfully placed.\n\n"
-            + "Order ID: " + order.getOrderId() + "\n"
-            + "Tracking Number: " + order.getOrderTrackingNum() + "\n"
-            + "Amount: ₹" + order.getTotalPrice() + "\n\n"
-            +"Download Invoice : "+fileUrl+"\n\n"
-            + "Thank you for shopping with us!";
-    
-    
-    order.setInvoiceUrl(fileUrl);
-    order.setInvoiceStatus("GENERATED");
-    
-    orderRepo.save(order);
-
-    System.out.println("email in verify payment "+order.getEmail());
-    invoice.delete();
-    
-    emailServiceImpl.sendOrderConfirmation(
-        order.getEmail(),
-        subject,
-        body,
-        null
-    );
-
-} catch (Exception e) {
-    e.printStackTrace();
-}
 return new CheckoutResponse(
 order.getOrderId(),
 order.getRazorpayPaymentId(),
@@ -238,5 +232,149 @@ order.getTotalPrice()
 		
 		
 	}
+
+
+
+	public Page<OrderResponseDto> getOrdersForDeliveryToday(int page, int size) {
+		
+		LocalDate today = LocalDate.now();
+		
+		LocalDateTime start = today.atStartOfDay();//12 am
+		
+		LocalDateTime end = today.atTime(23,59,59);
+		
+		Page<Order> orderPage = orderRepo.findOrdersForDeliveryToday(
+                start,
+                end,
+                "PAID",
+                PageRequest.of(page, size)
+        );
+		
+        return orderPage.map(this::mapToDto);
+	}
+
+
+
+	public Page<OrderResponseDto> getOrdersByStatus(String status, int page, int size) {
+
+        Page<Order> orderPage = orderRepo.findByOrderStatus(
+                status,
+                PageRequest.of(page, size)
+        );
+    
+        
+        return orderPage.map(this::mapToDto);
+	
+	}
+	
+	
+	public List<OrderResponseDto> getAllOrders() {
+		
+		List<Order> orders = orderRepo.findAll();
+		
+		List<OrderResponseDto> allOrders = new ArrayList<>();
+		
+		for(Order o:orders)
+		{
+			OrderResponseDto temp = mapToDto(o);
+			
+			allOrders.add(temp);
+		}
+		
+		return allOrders;
+		
+	}
+	
+	// ✅ 3. Mapping Logic (VERY IMPORTANT)
+    private OrderResponseDto mapToDto(Order order) {
+
+        OrderResponseDto dto = new OrderResponseDto();
+
+        dto.setOrderId(order.getOrderId());
+        dto.setOrderTrackingNum(order.getOrderTrackingNum());
+        dto.setEmail(order.getEmail());
+        dto.setTotalPrice(order.getTotalPrice());
+        dto.setOrderStatus(order.getOrderStatus());
+        dto.setTotalQuantity(order.getTotalQuantity());
+        dto.setDeliveryDate(order.getDeliveryDate());
+
+        // Map items
+        List<OrderItemDto> items = order.getOrderItems()
+                .stream()
+                .map(this::mapItemToDto)
+                .collect(Collectors.toList());
+
+        dto.setItems(items);
+
+        return dto;
+    }
+    
+    private OrderItemDto mapItemToDto(OrderItems item) {
+
+        OrderItemDto dto = new OrderItemDto();
+
+        dto.setImageUrl(item.getImageUrl());
+        dto.setProductId(item.getProductId());
+        dto.setName(item.getName());
+        dto.setQuantity(item.getQuantity());
+        dto.setUnitPrice(item.getUnitPrice());
+        
+
+        return dto;
+    }
+
+
+	
+	public List<FilterResponse> getOrderDetailsOnSearch(FilterRequest req)
+	{
+		System.out.println(req);
+		
+		List<FilterResponse> response = new ArrayList<>();
+		
+		List<Order> orders = orderRepo.findAll(OrderSpecification.filterOrders(req));
+		
+		
+		if(req == null) {
+			
+			for(Order o:orders)
+			{
+				List<OrderItemDto> dto = new ArrayList<>();
+				for(OrderItems oi:o.getOrderItems())
+				{
+					dto.add(new OrderItemDto(oi.getProductId(), oi.getQuantity(), oi.getUnitPrice(), oi.getImageUrl(), oi.getName()));
+				}
+				
+				response.add(new FilterResponse(o.getOrderId(),o.getEmail(),o.getDateCreated(), o.getOrderStatus(), o.getOrderTrackingNum(), o.getRazorpayPaymentId(), o.getDeliveryDate(),o.getInvoiceUrl(),dto));
+			}
+			
+			return response;
+			
+		}
+		
+		
+
+
+		
+		for(Order o:orders)
+		{	
+			
+			List<OrderItemDto> dto = new ArrayList<>();
+			for(OrderItems oi:o.getOrderItems())
+			{
+				dto.add(new OrderItemDto(oi.getProductId(), oi.getQuantity(), oi.getUnitPrice(), oi.getImageUrl(), oi.getName()));
+			}
+			
+			
+			response.add(new FilterResponse(o.getOrderId(),o.getEmail(),o.getDateCreated(), o.getOrderStatus(), o.getOrderTrackingNum(), o.getRazorpayPaymentId(), o.getDeliveryDate(),o.getInvoiceUrl(),dto));
+		}
+		
+		
+		return response;
+		
+	}
+
+
+
+	
 
 }

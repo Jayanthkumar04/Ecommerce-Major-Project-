@@ -10,6 +10,8 @@ import { ChangePasswordComponent } from './change-password/change-password.compo
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 import { OrderDashboardComponent } from './order-dashboard/order-dashboard.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { FilterOrdersComponent } from './filter-orders/filter-orders.component';
+import { OrderDetailsComponent } from './order-details/order-details.component';
 
 export const routes: Routes = [
   {path:'search/:keyword',component:ProductListComponent},
@@ -27,7 +29,9 @@ export const routes: Routes = [
   {path:'forgot-password',component:ForgotPasswordComponent},
   {path:'orders-dashboard',component:OrderDashboardComponent},
   {path:'admin-dashboard',component:AdminDashboardComponent},
-  {path:'',component:ProductListComponent,pathMatch:'full'},
+  {path:'filter-orders',component:FilterOrdersComponent},
+  {path:'order-details/:id',component:OrderDetailsComponent},
+   {path:'',component:ProductListComponent,pathMatch:'full'},
   {path:'**',component:ProductListComponent,pathMatch:'full'},
 
   

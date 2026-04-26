@@ -7,6 +7,11 @@ import { CartItems } from '../common/cart-items';
 })
 export class CartService {
 
+
+  constructor()
+  {
+    this.loadCartFromStorage();
+  }
   // store cart items
   cartItems: CartItems[] = [];
 
@@ -84,6 +89,33 @@ export class CartService {
     // send values to subscribers (Header & Cart Page)
     this.totalPrice.next(totalPriceValue);
     this.totalQuantity.next(totalQuantityValue);
+
+
+    localStorage.setItem("cartItems",JSON.stringify(this.cartItems));
+  }
+
+  // ==================
+  // reset cart
+  // ===================
+
+  clearCart()
+  {
+    this.cartItems=[];
+    this.totalPrice.next(0);
+    this.totalQuantity.next(0);
+    localStorage.removeItem("cartItems");
+  }
+
+  loadCartFromStorage()
+  {
+    const data = localStorage.getItem("cartItems");
+
+    if(data)
+    {
+      this.cartItems = JSON.parse(data);
+
+      this.computeCartTotals();
+    }
   }
 
 }

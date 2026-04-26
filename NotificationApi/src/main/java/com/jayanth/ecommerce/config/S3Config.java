@@ -1,4 +1,4 @@
-package com.org.jayanth.service;
+package com.jayanth.ecommerce.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -15,8 +15,8 @@ public class S3Config {
     public S3Client s3Client() {
 
         AwsBasicCredentials credentials = AwsBasicCredentials.create(
-                "YOUR_ACCESS_KEY",
-                "YOUR_SECRET_KEY"
+                "ACCESS KEY",
+                "SECRET KEY"
         );
 
         return S3Client.builder()

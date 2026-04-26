@@ -30,6 +30,10 @@
             <p style="font-size: small;">ADMIN DASHBOARD</p>
           </button>
 
+          <button *ngIf="isLogin && role === 'ROLE_ADMIN' " routerLink="/filter-orders" class="au-btn-submit login-btn">
+            <h3 style="font-size: small;">ALL ORDERS</h3>
+          </button>
+
           <!-- Cart -->
           <a routerLink="cart-detail" class="cart-link" *ngIf="role === 'ROLE_USER'">
             <div class="total">

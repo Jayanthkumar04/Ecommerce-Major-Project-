@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import com.jayanth.ecommerce.entity.Order;
 
 @Repository
-public interface OrderRepo extends JpaRepository<Order, Long>,JpaSpecificationExecutor<Order>{
+public interface OrderRepo extends JpaRepository<Order, Long>{
 
 
 	

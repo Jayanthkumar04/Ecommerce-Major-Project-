@@ -2,13 +2,13 @@ package com.jayanth.ecommerce.dto;
 
 public class AdminDashboardDto {
 
-private Integer totalCustomers;
+    private Integer totalCustomers;
 	
 	private Integer totalOrders;
 	
 	private Double totalAmountCollected;
 	
-	private Integer totalProducts;
+	private Long totalQuantity;
 	
 	
 	
@@ -19,12 +19,12 @@ private Integer totalCustomers;
 	}
 
 	public AdminDashboardDto(Integer totalCustomers, Integer totalOrders, Double totalAmountCollected,
-			Integer totalProducts) {
+			Long totalQuantity) {
 		super();
 		this.totalCustomers = totalCustomers;
 		this.totalOrders = totalOrders;
 		this.totalAmountCollected = totalAmountCollected;
-		this.totalProducts = totalProducts;
+		this.totalQuantity = totalQuantity;
 	}
 
 	public Integer getTotalCustomers() {
@@ -51,18 +51,20 @@ private Integer totalCustomers;
 		this.totalAmountCollected = totalAmountCollected;
 	}
 
-	public Integer getTotalProducts() {
-		return totalProducts;
+    
+
+	public Long getTotalQuantity() {
+		return totalQuantity;
 	}
 
-	public void setTotalProducts(Integer totalProducts) {
-		this.totalProducts = totalProducts;
+	public void setTotalQuantity(Long totalQuantity) {
+		this.totalQuantity = totalQuantity;
 	}
 
 	@Override
 	public String toString() {
 		return "AdminDashboardDto [totalCustomers=" + totalCustomers + ", totalOrders=" + totalOrders
-				+ ", totalAmountCollected=" + totalAmountCollected + ", totalProducts=" + totalProducts + "]";
+				+ ", totalAmountCollected=" + totalAmountCollected + ", totalQuantity=" + totalQuantity + "]";
 	}
 	
 	

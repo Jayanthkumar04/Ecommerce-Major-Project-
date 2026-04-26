@@ -37,7 +37,7 @@ export class RegisterComponent {
     }
     this.http.registerUser(this.registerForm.value).subscribe({
       next:(data)=>{
-        this.toastr.success("Registration is successfull please reset password")
+        this.toastr.success("Registration is successfull please reset password","please check your email")
         this.registerForm.reset();
         this.router.navigate(['/change-password'])
       },

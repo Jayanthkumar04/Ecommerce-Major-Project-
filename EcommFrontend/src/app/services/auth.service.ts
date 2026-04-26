@@ -36,11 +36,12 @@ export class AuthService {
 
   // ---------------- LOGIN STATE METHODS ----------------
 
-  setLogin(name:string,role:string) {
+  setLogin(name:string,role:string,email:string) {
    
     localStorage.setItem("login", "yes");
     localStorage.setItem("name", name);
     localStorage.setItem("role", role);
+    localStorage.setItem("email",email);
     console.log(role);
     this.loginStatus.next(true);
 
@@ -50,6 +51,7 @@ export class AuthService {
     localStorage.removeItem("login");
     localStorage.removeItem("name");
     localStorage.removeItem("role");
+    localStorage.removeItem("email");
     this.loginStatus.next(false);
   }
 
@@ -59,6 +61,10 @@ export class AuthService {
 
   getUserName(): string {
     return localStorage.getItem("name") || "";
+  }
+
+  getUserEmail():string{
+   return localStorage.getItem("email") || ""; 
   }
 
   getUserRole():string{

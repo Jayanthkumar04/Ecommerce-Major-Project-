@@ -1,0 +1,69 @@
+<br>
+<div class="details-section">
+
+  <h2>Search Orders</h2>
+  <div class="forms">
+    <form [formGroup]="filterRequest" (ngSubmit)="filterOrders()">
+
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" formControlName="email" placeholder="Enter email">
+      </div>
+
+      <div class="input-group">
+        <label>Start Date</label>
+        <input type="date" formControlName="startDate" placeholder="Start Date">
+      </div>
+
+      <div class="input-group">
+        <label>End Date</label>
+        <input type="date" formControlName="endDate" placeholder="End Date">
+      </div>
+
+
+      <button class="btn btn-success">Filter Orders</button>
+
+    </form>
+  </div>
+
+
+
+
+
+
+
+  <table class="table table-bordered table-responsive">
+    <thead>
+
+      <th>Email</th>
+      <th>OrderId</th>
+      <th>OrderStatus</th>
+      <th>created Date</th>
+      <th>TotalPrice</th>
+      <th>TotalQuantity</th>
+      <th>Order Tracking Number</th>
+      <th>Razorpay Payment Id</th>
+      <th>View Products</th>
+    </thead>
+
+    <tbody *ngFor="let o of orders">
+      <tr>
+        <td>{{o.email}}</td>
+        <td>{{o.orderId}}</td>
+        <td>{{o.orderStatus}}</td>
+        <td>{{o.orderDate}}</td>
+        <td>fsdlf</td>
+        <td>fldsf</td>
+
+        <td>{{o.orderTrackingNum}}</td>
+        <td>{{o.razorpayPaymentId}}</td>
+        <td><a routerLink="/order-details/{{o.orderId}}">view products</a></td>
+      </tr>
+
+    </tbody>
+
+
+  </table>
+
+
+</div>

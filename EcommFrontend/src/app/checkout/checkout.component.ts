@@ -88,7 +88,10 @@ export class CheckoutComponent implements OnInit{
 
           this.orderService.verifyPayment(paymentResponse)
               .subscribe(res => {
+
+                  this.cartService.clearCart();
                  this.toaster.success("payment successfull","please note the order id and the same are shared to email also");
+                
                  this.router.navigate(['/order-success', res.orderTrackingNum]);
               });
         },

@@ -1,0 +1,32 @@
+<div class="detail-section">
+
+
+  <h4 style="text-align: center;">YOUR-ORDER-DETAILS</h4>
+  <div *ngIf="userOrders == null" class="alert alert-warning col-md-12">
+
+    <h3 style="text-align: center;">No order history,Its shopping time</h3>
+  </div>
+
+  <h5>Order-Id: {{userOrders.orderId}}</h5>
+  <h5>Order-Date: {{userOrders.orderDate}}</h5>
+  <h5>Order-Delivery-Date: {{userOrders.deliveryDate}}</h5>
+  <h5>Invoice: <a href="{{userOrders.invoiceUrl}}" target="_blank"><button class="btn btn-success">Download
+        Invoice</button></a></h5>
+
+  <table class="table table-bordered table-responsive">
+    <thead>
+      <th>Product-Image</th>
+      <th>Unit-Price</th>
+      <th>Quantity</th>
+    </thead>
+    <tbody *ngFor="let oi of userOrders.items">
+      <tr>
+        <td><img [src]="oi.imageUrl" alt="" class="image-responsive"> </td>
+        <td>{{oi.unitPrice}}</td>
+        <td>{{oi.quantity}}</td>
+      </tr>
+    </tbody>
+
+
+  </table>
+</div>

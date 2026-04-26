@@ -1,10 +1,10 @@
-package com.jayanth.ecommerce.service;
+package com.org.jayanth.service;
 
 
 import org.springframework.data.jpa.domain.Specification;
 
-import com.jayanth.ecommerce.dto.FilterRequest;
-import com.jayanth.ecommerce.entity.Order;
+import com.org.jayanth.dto.FilterRequest;
+import com.org.jayanth.entity.Order;
 
 import jakarta.persistence.criteria.Predicate;
 
@@ -15,6 +15,14 @@ public class OrderSpecification {
         return (root, query, cb) -> {
 
             Predicate predicate = cb.conjunction(); // always true initially
+            
+            
+         // 0. OrderId filter
+            if (filter.getOrderId() != null) {
+                predicate = cb.and(predicate,
+                        cb.equal(root.get("orderId"), filter.getOrderId())
+                );
+            }
 
             // 1. Email filter
             if (filter.getEmail() != null && !filter.getEmail().isEmpty()) {
@@ -42,6 +50,8 @@ public class OrderSpecification {
                                 filter.getEndDate()
                         ));
             }
+            
+         
             
             return predicate;
         };

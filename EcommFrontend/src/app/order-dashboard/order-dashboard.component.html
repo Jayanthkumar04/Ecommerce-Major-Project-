@@ -1,31 +1,45 @@
 <div class="detail-section">
+
+
   <h4>YOUR ORDERS</h4>
-  <table class="table table-bordered table-responsive">
+  <div *ngIf="userOrders == null" class="alert alert-warning col-md-12">
+
+    <h3 style="text-align: center;">No order history,Its shopping time</h3>
+  </div>
+
+  <table class="table table-bordered table-responsive" *ngIf="userOrders != null">
     <thead>
-      <th>Order Traking num</th>
-      <th>Total Price</th>
-      <th>Total Quantity</th>
-      <th>Date</th>
-      <th>Order Status</th>
+      <th>Order-Date </th>
+      <th>Order-Status</th>
+      <th>Order-Tracking-Number</th>
+      <th>Razorpay-Payment-Id</th>
+      <th>Delivery-Date</th>
+      <th>View-Order-Details</th>
+      <th>Retry-Payment</th>
     </thead>
-    <tbody>
+    <tbody *ngFor="let o of userOrders">
       <tr>
-        <td>321123123123</td>
-        <td>4523</td>
-        <td>4</td>
-        <td>5-09-2020</td>
-        <td><a href="#">view order details</a></td>
-        <td><button class="btn btn-success" (click)="retryPayment(10)">Retry payment</button></td>
+        <td>{{o.orderDate}}</td>
+        <td>{{o.orderStatus}}</td>
+        <td>{{o.orderTrackingNum}}</td>
+        <td>{{o.razorpayPaymentId}}</td>
+        <td>{{o.deliveryDate}}</td>
+
+        <td><a routerLink="/order-details/{{o.orderId}}"
+            *ngIf="o.orderStatus == 'PAID' || o.orderStatus == 'created'">{{o.orderStatus == "PAID" ? 'view order details':'complete payment'}}</a></td>
+
+
+
+        <div *ngIf="o.orderStatus == 'created'">
+          <td><button class="btn btn-warning" (click)="retryPayment(o.orderId)">Retry payment</button></td>
+        </div>
+        <div *ngIf="o.orderStatus == 'PAID'">
+          <td><a href="{{o.invoiceUrl}}" target="_blank"><button class="btn btn-success">View Invoice</button> </a></td>
+        </div>
+
+
       </tr>
-      <tr>
-        <td>321123123123</td>
-        <td>4523</td>
-        <td>4</td>
-        <td>5-09-2020</td>
-        <td><a href="#">view order details</a></td>
-      </tr>
+
     </tbody>
   </table>
 </div>
-
-

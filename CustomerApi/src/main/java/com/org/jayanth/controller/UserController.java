@@ -1,15 +1,21 @@
 package com.org.jayanth.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.org.jayanth.dto.FilterRequest;
+import com.org.jayanth.dto.FilterResponse;
 import com.org.jayanth.dto.ForgotPasswordDto;
 import com.org.jayanth.dto.ForgotPasswordResponse;
 import com.org.jayanth.dto.LoginDto;
@@ -65,10 +71,28 @@ public class UserController {
 	}
 	
 	
+	@GetMapping("/userExists")
+	public boolean userExists(@RequestParam("email") String email)
+	{
+		
+		return userService.userExists(email);
+		
+	}
     
 	
+	@GetMapping("/allUsers")
+	public int noOfUsers()
+	{
+		return userService.noOfUsers();
+	}
 	
-	
+	@PostMapping("/filter")
+	public ResponseEntity<List<FilterResponse>> getFilterResponse(@RequestBody(required = false) FilterRequest request)
+	{
+		List<FilterResponse> response = userService.getFilteredOrders(request);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(response);
+	}
 	
 	
 	

@@ -1,25 +1,28 @@
 <div class="detail-section">
   <h3 class="text-center">ADMIN DASHBOARD</h3>
   <div class="container-fluid">
-    <table class="table table-bordered">
-      <tbody>
-        <tr>
-          <td>Total Customers</td>
-          <td>{{dashboardDetail.totalCustomers}}</td>
-        </tr>
-        <tr>
-          <td>Total Orders</td>
-          <td>{{dashboardDetail.totalOrders}}</td>
-        </tr>
-        <tr>
-          <td>Total Amount Collected</td>
-          <td>{{dashboardDetail.totalAmountCollected|currency:'INR'}}</td>
-        </tr>
-        <tr>
-          <td>Total products</td>
-          <td>{{dashboardDetail.totalProducts}}</td>
-        </tr>
-      </tbody>
-    </table>
+
+    <div *ngIf="dashboardDetail">
+      <table class="table table-bordered">
+        <tbody>
+          <tr>
+            <td>Total Customers</td>
+            <td>{{dashboardDetail.totalCustomers}}</td>
+          </tr>
+          <tr>
+            <td>Total Orders</td>
+            <td>{{dashboardDetail.totalOrders}}</td>
+          </tr>
+          <tr>
+            <td>Total Amount Collected</td>
+            <td>{{dashboardDetail.totalAmountCollected | currency:'INR'}}</td>
+          </tr>
+          <tr>
+            <td>Total products</td>
+            <td>{{dashboardDetail.totalQuantity}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 </div>

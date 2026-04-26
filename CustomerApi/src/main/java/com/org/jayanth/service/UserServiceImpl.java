@@ -1,10 +1,15 @@
 package com.org.jayanth.service;
 
+import java.util.List;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.org.jayanth.client.NotificationApiClient;
+import com.org.jayanth.client.OrderFeignClient;
+import com.org.jayanth.dto.FilterRequest;
+import com.org.jayanth.dto.FilterResponse;
 import com.org.jayanth.dto.ForgotPasswordResponse;
 import com.org.jayanth.dto.LoginDto;
 import com.org.jayanth.dto.LoginSuccessDto;
@@ -22,7 +27,11 @@ public class UserServiceImpl {
 	private UserRepo userRepo;
 	
 	@Autowired
-	private EmailServiceImpl emailService;
+	private NotificationApiClient notificationClient;
+	
+	
+	@Autowired
+	private OrderFeignClient orderClient;
 	
 	
 	public RegisterResponseDto registerUser(RegisterDto dto)
@@ -42,7 +51,7 @@ public class UserServiceImpl {
 		user.setResetPassword(false);
 
 		userRepo.save(user);
-		emailService.sendEmail(dto.getEmail(),"REGISTRATION IS SUCCESSFULL ", "GOOD DAY "+dto.getName()+"\n Your password is:"+user.getPassword()+" please reset it");
+		notificationClient.sendNotification(dto.getEmail(),"REGISTRATION IS SUCCESSFULL ", "GOOD DAY "+dto.getName()+"\n Your password is:"+user.getPassword()+" please reset it");
 		return new RegisterResponseDto(dto.getName(), dto.getEmail(),true, user.getRole(), "USER REGISTERED SUCCESSFULLY PLEASE RESET THE PASSWORD MAIL HAS BEEN SENT");
 		
 	}
@@ -95,8 +104,8 @@ public class UserServiceImpl {
 		
 		user.setPassword(resetPassword);
 		
-	    emailService.sendEmail(email, "REQUEST FOR RESET PASSWORD : ", "Please use the below password to reset Password: \n"+resetPassword+"\n The link to reset your password is :"+link);
-	
+		notificationClient.sendNotification(email, "REQUEST FOR RESET PASSWORD : ", "Please use the below password to reset Password: \n"+resetPassword+"\n The link to reset your password is :"+link);
+		
 	    userRepo.save(user);
 	    
 	    return new ForgotPasswordResponse(link, resetPassword);
@@ -135,6 +144,32 @@ public class UserServiceImpl {
 		Random rand = new Random();
 		
 		return "TMP"+(1000+rand.nextInt(90000));
+	}
+
+	public boolean userExists(String email) {
+		
+		
+		return findByEmail(email) != null;
+	}
+
+	public int noOfUsers() {
+		
+		List<Users> user = userRepo.findAll();
+		
+		return user.size();
 	}	
+	
+	
+	public List<FilterResponse> getFilteredOrders(FilterRequest request)
+	{
+		
+		return orderClient.getFilteredOrders(request);
+		
+	}
+	
+	
+	
+	
+	
 	
 }

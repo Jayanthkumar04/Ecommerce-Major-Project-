@@ -1,4 +1,4 @@
-package com.org.jayanth.service;
+package com.jayanth.ecommerce.config;
 
 import java.util.concurrent.Executor;
 
