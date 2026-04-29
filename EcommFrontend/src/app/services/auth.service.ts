@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { LoginSuccess } from '../common/login-success';
+import { CartService } from './cart.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,7 @@ export class AuthService {
 
   private baseUrl = "http://localhost:8083/users";
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient,private cartService:CartService) {}
 
   // 🔥 LOGIN STATE MANAGEMENT
   private loginStatus = new BehaviorSubject<boolean>(this.isLoggedIn());
@@ -37,11 +38,13 @@ export class AuthService {
   // ---------------- LOGIN STATE METHODS ----------------
 
   setLogin(name:string,role:string,email:string) {
-   
+
+
     localStorage.setItem("login", "yes");
     localStorage.setItem("name", name);
     localStorage.setItem("role", role);
     localStorage.setItem("email",email);
+   
     console.log(role);
     this.loginStatus.next(true);
 
@@ -52,6 +55,7 @@ export class AuthService {
     localStorage.removeItem("name");
     localStorage.removeItem("role");
     localStorage.removeItem("email");
+    this.cartService.clearCart()
     this.loginStatus.next(false);
   }
 

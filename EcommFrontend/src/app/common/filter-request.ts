@@ -1,7 +1,9 @@
 export class FilterRequest {
 
-  constructor(public email:string,public startDate:Date,public endDate:Date,public orderId:number)
-  {
 
+  constructor(public email:string |null  , public startDate:string|null, public endDate:string|null, public orderId:number)
+  {
+             
   }
+
 }

@@ -1,14 +1,15 @@
 package com.jayanth.ecommerce.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class FilterRequest {
 	
 	private String email;
 	
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 	
 	private Long orderId;
 
@@ -17,7 +18,7 @@ public class FilterRequest {
 		// TODO Auto-generated constructor stub
 	}
 
-	public FilterRequest(String email, LocalDateTime startDate, LocalDateTime endDate,Long orderId) {
+	public FilterRequest(String email, LocalDate startDate, LocalDate endDate,Long orderId) {
 		super();
 		this.email = email;
 		this.startDate = startDate;
@@ -33,19 +34,19 @@ public class FilterRequest {
 		this.email = email;
 	}
 
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDateTime getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 	

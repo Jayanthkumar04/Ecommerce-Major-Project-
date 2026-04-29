@@ -2,7 +2,6 @@ package com.jayanth.ecommerce.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-
 import software.amazon.awssdk.auth.credentials.AwsBasicCredentials;
 import software.amazon.awssdk.auth.credentials.StaticCredentialsProvider;
 import software.amazon.awssdk.regions.Region;
@@ -16,7 +15,7 @@ public class S3Config {
 
         AwsBasicCredentials credentials = AwsBasicCredentials.create(
                 "ACCESS KEY",
-                "SECRET KEY"
+                "AWS SECRET"
         );
 
         return S3Client.builder()

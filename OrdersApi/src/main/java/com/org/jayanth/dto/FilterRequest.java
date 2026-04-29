@@ -1,28 +1,30 @@
 package com.org.jayanth.dto;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class FilterRequest {
 	
 	private String email;
 	
-	private LocalDateTime startDate;
+	private LocalDate startDate;
 	
-	private LocalDateTime endDate;
+	private LocalDate endDate;
 	
-	 private String orderStatus;
+	private String orderStatus;
 
-	    private String invoiceStatus;
+	private String invoiceStatus;
 
-	    private String orderTrackingNum;
+	private String orderTrackingNum;
 
-	    private String razorpayPaymentId;
+	private String razorpayPaymentId;
 
-	    private LocalDateTime deliveryStartDate;
-	    private LocalDateTime deliveryEndDate;
+	private LocalDateTime deliveryStartDate;
 
-	    private Double minPrice;
-	    private Double maxPrice;
+	private LocalDateTime deliveryEndDate;
+
+	private Double minPrice;
+	private Double maxPrice;
 	    
 	   private Long orderId;
 
@@ -34,7 +36,7 @@ public class FilterRequest {
 
  
 	
-	public FilterRequest(String email, LocalDateTime startDate, LocalDateTime endDate, String orderStatus,
+	public FilterRequest(String email, LocalDate startDate, LocalDate endDate, String orderStatus,
 			String invoiceStatus, String orderTrackingNum, String razorpayPaymentId, LocalDateTime deliveryStartDate,
 			LocalDateTime deliveryEndDate, Double minPrice, Double maxPrice,Long orderId) {
 		super();
@@ -62,19 +64,19 @@ public class FilterRequest {
 		this.email = email;
 	}
 
-	public LocalDateTime getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(LocalDateTime startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public LocalDateTime getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(LocalDateTime endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 

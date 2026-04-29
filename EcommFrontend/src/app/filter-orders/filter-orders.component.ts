@@ -7,6 +7,7 @@ import { RouterLink } from '@angular/router';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 
+
 @Component({
   selector: 'app-filter-orders',
   standalone: true,
@@ -15,29 +16,19 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './filter-orders.component.css'
 })
 export class FilterOrdersComponent implements OnInit{
-
-
   orders!:FilterResponse[];
-
   filterRequest!:FormGroup;
-
   isFilled:boolean=false;
-
   constructor(private orderService:OrderService,private fb:FormBuilder,private toaster:ToastrService){
-
     this.filterRequest = this.fb.group({
       email:["",[Validators.required]],
       startDate:["",[Validators.required]],
       endDate:["",[Validators.required]]
     })
-
   }
 
-
   ngOnInit(): void {
-
     const request = new FilterRequest(null as any,null as any,null as any,null as any);
-
     this.orderService.getUserOrders(request).subscribe(
       data=>{
         this.orders = data;
@@ -49,22 +40,18 @@ export class FilterOrdersComponent implements OnInit{
 
 filterOrders() {
   this.isFilled = true;
-
   const form = this.filterRequest.value;
 
-// const request = new FilterRequest(
-//   form.email || null,
-//   this.formatDate(form.startDate),
-//   this.formatDate(form.endDate),
-//   form.orderId || null
-// );
 
 const request = new FilterRequest(
-  form.email || null,
-  null as any,
-  null as any,
-  form.orderId || null
-);
+    this.clean(form.email),
+    this.formatDate(form.startDate),
+    this.formatDate(form.endDate),
+    this.clean(form.orderId)
+  );
+
+
+
 
   this.orderService.filterOrders(request).subscribe({
     next:(data)=>{
@@ -80,8 +67,14 @@ formatDate(date: any): string | null {
   if (!date) return null;
 
   const d = new Date(date);
-  return d.toISOString().slice(0, 19);
+  return d.toISOString().split('T')[0]; 
 }
+
+
+clean(value: any) {
+  return value === '' || value === undefined ? null : value;
+}
+
 
 
 
